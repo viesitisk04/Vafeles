@@ -3,18 +3,21 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 
+// Laravel palaišanas sākuma laiks
 define('LARAVEL_START', microtime(true));
 
-// Determine if the application is in maintenance mode...
+// Pārbauda, vai aplikācija ir uzturēšanas (maintenance) režīmā
+// Ja jā, tiek nolasīts speciāls uzturēšanas fails
 if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
     require $maintenance;
 }
 
-// Register the Composer autoloader...
+// Ielādē Composer autoladeri, lai PHP varētu atrast visas klases
 require __DIR__.'/../vendor/autoload.php';
 
-// Bootstrap Laravel and handle the request...
+// Ielādē Laravel aplikāciju
 /** @var Application $app */
 $app = require_once __DIR__.'/../bootstrap/app.php';
 
+// Apstrādā ienākošo HTTP pieprasījumu un nosūta atbildi lietotājam
 $app->handleRequest(Request::capture());
