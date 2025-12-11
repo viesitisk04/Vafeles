@@ -2,61 +2,40 @@
 <html lang="lv">
 <head>
     <meta charset="UTF-8">
-    <title>Burbuļvafeļu Piedāvājums</title>
+    <title>Burbuļvafeles</title>
     <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            background: #fafafa;
-            margin: 0;
-            padding: 20px;
+        .vafeles-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .vafele { border: 1px solid #ccc; padding: 15px; margin: 0; background: #fff; border-radius:4px; }
+        .vafele h2 { margin: 0 0 8px 0; font-size: 1.1rem; }
+        .vafele img { width: 100%; height: 160px; object-fit: cover; display:block; margin-bottom: 10px; border-radius:4px; }
+
+        @media (max-width: 992px) {
+            .vafeles-grid { grid-template-columns: repeat(2, 1fr); }
         }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-        }
-        .item {
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            padding: 15px;
-            width: 240px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        .item h2 {
-            margin: 0 0 10px;
-            color: #444;
-        }
-        .item p {
-            color: #666;
-        }
-        .item strong {
-            display: block;
-            margin-top: 10px;
-            font-size: 18px;
-            color: #222;
+        @media (max-width: 480px) {
+            .vafeles-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
+    <h1>Burbuļvafeļu piedāvājums</h1>
+    <div class="vafeles-grid">
+    @foreach($vafeles as $vafele)
+        <div class="vafele">
+            @if(!empty($vafele['image']))
+                <img src="{{ $vafele['image'] }}" alt="{{ $vafele['name'] }}">
+            @endif
 
-    <h1>Mūsu burbuļvafeļu piedāvājums</h1>
-
-    <div class="container">
-        @foreach($vafeles as $vafele)
-            <div class="item">
-                <h2>{{ $vafele['name'] }}</h2>
-                <p>{{ $vafele['description'] }}</p>
-                <strong>{{ number_format($vafele['price'], 2) }} €</strong>
-            </div>
-        @endforeach
+            <h2>{{ $vafele['name'] }}</h2>
+            <p>{{ $vafele['description'] }}</p>
+            <strong>Cena: €{{ number_format($vafele['price'], 2) }}</strong>
+            <br><br>
+            <a href="{{ route('vafele.show', $vafele['id']) }}">Apskatīt vairāk</a>
+        </div>
+    @endforeach
     </div>
 
+    <br>
+    <a href="{{ route('kontakti') }}">Sazināties ar mums</a>
 </body>
 </html>
