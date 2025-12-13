@@ -1,37 +1,51 @@
-<!DOCTYPE html>
-<html lang="lv">
-<head>
-    <meta charset="UTF-8">
-    <title>Kontakti</title>
-</head>
-<body>
+@extends('layouts.app')
 
-<h1>Sazināties ar mums</h1>
+@section('content')
 
+<h1 style="text-align:center;">Kontakti</h1>
+
+{{-- Uzņēmuma informācija --}}
+<div style="text-align:center; margin-top:30px; font-size:18px;">
+    <p><strong>SIA "Vafeles"</strong></p>
+    <p>Reg. nr.: 40203661043</p>
+    <p>Adrese: Rīga, Daugavgrīvas iela 74A - 99, LV-1007</p>
+    <p>Talrunis: +371 28100382</p>
+    <p>E-pasts: info@vafeles.lv</p>
+</div>
+
+<hr style="margin:40px 0;">
+
+{{-- Ziņas veiksmīgas nosūtīšanas paziņojums --}}
 @if(session('success'))
-    <p style="color: green">{{ session('success') }}</p>
+    <p style="color: green; text-align:center;">{{ session('success') }}</p>
 @endif
 
-<form method="POST" action="{{ route('kontakti.sutit') }}">
-    @csrf
+{{-- Saziņas forma --}}
+<div style="max-width:500px; margin:0 auto;">
 
-    <label>Vārds:</label><br>
-    <input type="text" name="vards" value="{{ old('vards') }}"><br>
-    @error('vards') <p style="color:red">{{ $message }}</p> @enderror
+    <h2>Sazinies ar mums</h2>
 
-    <label>E-pasts:</label><br>
-    <input type="email" name="epasts" value="{{ old('epasts') }}"><br>
-    @error('epasts') <p style="color:red">{{ $message }}</p> @enderror
+    <form method="POST" action="{{ route('kontakti.sutit') }}">
+        @csrf
 
-    <label>Ziņojums:</label><br>
-    <textarea name="zinojums">{{ old('zinojums') }}</textarea><br>
-    @error('zinojums') <p style="color:red">{{ $message }}</p> @enderror
+        <label>Vārds:</label><br>
+        <input type="text" name="vards" value="{{ old('vards') }}" style="width:100%; padding:8px;">
+        @error('vards') <p style="color:red">{{ $message }}</p> @enderror
+        <br><br>
 
-    <button type="submit">Sūtīt</button>
-</form>
+        <label>E-pasts:</label><br>
+        <input type="email" name="epasts" value="{{ old('epasts') }}" style="width:100%; padding:8px;">
+        @error('epasts') <p style="color:red">{{ $message }}</p> @enderror
+        <br><br>
 
-<br>
-<a href="/">⬅ Atpakaļ uz sākumu</a>
+        <label>Ziņojums:</label><br>
+        <textarea name="zinojums" style="width:100%; padding:8px;" rows="5">{{ old('zinojums') }}</textarea>
+        @error('zinojums') <p style="color:red">{{ $message }}</p> @enderror
+        <br><br>
 
-</body>
-</html>
+        <button type="submit" style="padding:10px 20px;">Sūtīt</button>
+    </form>
+
+</div>
+
+@endsection
