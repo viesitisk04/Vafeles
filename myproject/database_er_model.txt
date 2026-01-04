@@ -1,0 +1,192 @@
+Konceptuālais ER modelis - Vafeles veikala datu bāze
+===============================================
+
+ENTĪTES UN ATRIBUTI:
+===================
+
+LIETOTĀJS (User)
+---------------
+- id: INTEGER (primārā atslēga)
+- name: VARCHAR (lietotāja vārds)
+- email: VARCHAR (e-pasta adrese, unikāla)
+- password: VARCHAR (šifrēta parole)
+- is_admin: BOOLEAN (vai ir administrators)
+- email_verified_at: TIMESTAMP (e-pasta verifikācijas laiks)
+- created_at: TIMESTAMP
+- updated_at: TIMESTAMP
+
+KATEGORIJA (Kategorija)
+----------------------
+- id: INTEGER (primārā atslēga)
+- name: VARCHAR (kategorijas nosaukums)
+- slug: VARCHAR (URL draudzīgs identifikators, unikāls)
+- created_at: TIMESTAMP
+- updated_at: TIMESTAMP
+
+PRODUKTS (Produkts)
+------------------
+- id: INTEGER (primārā atslēga)
+- name: VARCHAR (produkta nosaukums)
+- apraksts: TEXT (produkta apraksts)
+- sastavs: TEXT (produkta sastāvs)
+- cena: DECIMAL(8,2) (produkta cena)
+- attels: VARCHAR (attēla ceļš)
+- energija: VARCHAR (enerģētiskā vērtība)
+- kategorija_id: INTEGER (ārējā atslēga uz Kategorija)
+- created_at: TIMESTAMP
+- updated_at: TIMESTAMP
+
+PASŪTĪJUMS (Pasutijums)
+----------------------
+- id: INTEGER (primārā atslēga)
+- user_id: INTEGER (ārējā atslēga uz User, var būt NULL)
+- kopa: DECIMAL(8,2) (kopējā pasūtījuma summa)
+- created_at: TIMESTAMP
+- updated_at: TIMESTAMP
+
+PASŪTĪJUMA_PRODUKTS (PasutijumaProdukts)
+----------------------------------------
+- id: INTEGER (primārā atslēga)
+- pasutijums_id: INTEGER (ārējā atslēga uz Pasutijums)
+- nosaulums: VARCHAR (produkta nosaukums pasūtījumā)
+- cena: DECIMAL(8,2) (cena pasūtījuma brīdī)
+- daudzums: INTEGER (pasūtītais daudzums)
+- created_at: TIMESTAMP
+- updated_at: TIMESTAMP
+
+SAZITĒJUMI (Relationships):
+=========================
+
+PAŠREIZĒJIE SAZITĪJUMI:
+----------------------
+
+1. LIETOTĀJS - PASŪTĪJUMS
+   - Tips: 1:N (viens lietotājs var veikt vairākus pasūtījumus)
+   - Ārējā atslēga: user_id (Pasutijums tabulā)
+   - Var būt NULL (anonīmi pasūtījumi)
+
+2. KATEGORIJA - PRODUKTS
+   - Tips: 1:N (vienā kategorijā var būt vairāki produkti)
+   - Ārējā atslēga: kategorija_id (Produkts tabulā)
+   - Cascade on delete
+
+3. PASŪTĪJUMS - PASŪTĪJUMA_PRODUKTS
+   - Tips: 1:N (vienā pasūtījumā var būt vairāki produkti)
+   - Ārējā atslēga: pasutijums_id (PasutijumaProdukts tabulā)
+   - Cascade on delete
+
+PROBLĒMA: NAV TIEŠAS SAIKNES STARP PRODUKTS UN PASŪTĪJUMA_PRODUKTS
+-----------------------------------------------------------------
+
+Pašreizējā dizainā ir divi atsevišķi zari:
+- Zars 1: Kategorija → Produkts (produktu katalogs)
+- Zars 2: User → Pasutijums → PasutijumaProdukts (pasūtījumu sistēma)
+
+PasutijumaProdukts glabā produkta datus kā vēsturisko informāciju, nevis atsauces.
+
+IESPĒJAMIE UZLABOJUMI:
+--------------------
+
+Lai savienotu zarus, var pievienot produkts_id PasutijumaProdukts tabulai:
+
+4. PRODUKTS - PASŪTĪJUMA_PRODUKTS (jauna saikne)
+   - Tips: 1:N (viens produkts var būt vairākos pasūtījumos)
+   - Ārējā atslēga: produkts_id (PasutijumaProdukts tabulā)
+   - NULL on delete (saglabāt vēsturiskos datus)
+
+ER DIAGRAMMA (ASCII) - DIVI ATSEVIŠĶI ZARI:
+==============================================
+
+                +----------------+
+                |   LIETOTĀJS   |
+                +----------------+
+                | id (PK)       |
+                | name          |
+                | email         |
+                | password      |
+                | is_admin      |
+                +----------------+
+                        | 1
+                        |
+                        | N
+                        v
+                +----------------+
+                |  PASŪTĪJUMS   |
+                +----------------+
+                | id (PK)       |
+                | user_id (FK)  |
+                | kopa          |
+                +----------------+
+                        | 1
+                        |
+                        | N
+                        v
+                +----------------+
+                | PASŪTĪJUMA_   |
+                |   PRODUKTS    |
+                +----------------+
+                | id (PK)       |
+                | pasutijums_id |
+                | nosaulums     |
+                | cena          |
+                | daudzums      |
+                +----------------+
+
+                +----------------+
+                |   KATEGORIJA   |
+                +----------------+
+                | id (PK)       |
+                | name          |
+                | slug          |
+                +----------------+
+                        | 1
+                        |
+                        | N
+                        v
+                +----------------+
+                |   PRODUKTS     |
+                +----------------+
+                | id (PK)       |
+                | kategorija_id |
+                | name          |
+                | apraksts      |
+                | cena          |
+                | ...           |
+                +----------------+
+         | 1             | attels        |
+         |               | energija      |
+         | N             | created_at    |
+         v               | updated_at    |
++----------------+       +----------------+
+| PASŪTĪJUMA_   |
+|   PRODUKTS    |
++----------------+
+| id (PK)       |
+| pasutijums_id |
+| nosaulums     |
+| cena          |
+| daudzums      |
+| created_at    |
+| updated_at    |
++----------------+
+
+Piezīmes:
+========
+- Visas tabulas izmanto Laravel timestamp laukus (created_at, updated_at)
+- Ārējās atslēgas ir konfigurētas ar atbilstošiem ierobežojumiem
+- Produkti tiek organizēti pa kategorijām
+- Pasūtījumi var būt gan reģistrētiem, gan anonīmiem lietotājiem
+- Pasūtījuma produkti saglabā vēsturisko informāciju (cenu, nosaukumu) par pasūtījuma brīdi
+
+PROBLĒMAS AR PAŠREIZĒJO DIZAINU:
+==============================
+1. Nav iespējams izsekot, kuri produkti ir populārāki (nav statistikas)
+2. Ja produkts tiek dzēsts no kataloga, pasūtījumu dati paliek nesakarīgi
+3. Grūti veikt produktu cenu vai nosaukumu izmaiņas visos pasūtījumos
+4. Nav iespējams automatizēti atjaunināt pasūtījumu informāciju
+
+IESPĒJAMIE RISINĀJUMI:
+=====================
+1. Pievienot produkts_id laukam PasutijumaProdukts tabulai
+2. Izveidot trigerus vai loģiku cenu/nosaukumu atjaunināšanai
+3. Pievienot statusu laukus (aktīvs/neaktīvs) Produkts tabulai

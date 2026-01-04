@@ -8,7 +8,7 @@ use App\Mail\KontaktuZinaMail;
 
 class KontaktiKontrolieris extends Controller
 {
-    public function forma()
+    public function index()
     {
         return view('kontakti');
     }

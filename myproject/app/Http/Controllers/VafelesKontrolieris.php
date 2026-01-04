@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 class VafelesKontrolieris extends Controller
 {
     private $vafeles = [
-        ['id' => 1, 'name' => 'Šokolādes burbuļvafele', 'description' => 'Gards šokolādes deserts.', 'price' => 4.50, 'image' => 'https://www.dateks.lv/images/pic/2400/2400/811/1499.jpg'],
-        ['id' => 2, 'name' => 'Zemeņu burbuļvafele', 'description' => 'Ar svaigām zemenēm un putukrējumu.', 'price' => 5.00, 'image' => 'https://www.dateks.lv/images/pic/2400/2400/811/1499.jpg'],
+        ['id' => 1, 'name' => 'Šokolādes burbuļvafele', 'description' => 'Gards šokolādes deserts.', 'price' => 4.50, 'image' => 'https://www.dateks.lv/images/pic/2400/2400/811/1499.jpg', 'ingredients' => ['Milti', 'Piens', 'Olas', 'Zemenes', 'Putukrējums'],'energy' => '300 kcal'],
+        ['id' => 2, 'name' => 'Zemeņu burbuļvafele', 'description' => 'Ar svaigām zemenēm un putukrējumu.', 'price' => 5.00, 'image' => 'https://www.dateks.lv/images/pic/2400/2400/811/1499.jpg', 'ingredients' => ['Milti', 'Piens', 'Olas', 'Zemenes', 'Putukrējums'],'energy' => '300 kcal'],
         ['id' => 3, 'name' => 'Karameļu burbuļvafele', 'description' => 'Pārklāta ar karameļu mērci.', 'price' => 4.80, 'image' => 'https://www.dateks.lv/images/pic/2400/2400/811/1499.jpg'],
         ['id' => 4, 'name' => 'Oreo burbuļvafele', 'description' => 'Ar kraukšķīgiem Oreo gabaliņiem.', 'price' => 5.20, 'image' => 'https://www.dateks.lv/images/pic/2400/2400/811/1499.jpg'],
         ['id' => 5, 'name' => 'Meža ogu burbuļvafele', 'description' => 'Ar mellenēm, avenēm un kazenēm.', 'price' => 5.10, 'image' => 'https://www.dateks.lv/images/pic/2400/2400/811/1499.jpg'],
@@ -19,8 +19,7 @@ class VafelesKontrolieris extends Controller
 
     public function index()
     {
-        $vafeles = $this->vafeles;
-        return view('sakums', compact('vafeles'));
+        return redirect('/kategorija/vafeles');
     }
 
     public function show($id)

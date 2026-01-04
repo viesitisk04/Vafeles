@@ -29,7 +29,7 @@ class GrozsKontrolieris extends Controller
 
         session()->put('grozs', $grozs);
 
-        return back()->with('success', 'Produkts pievienots grozam');
+        return back();
     }
 
     public function atjauninat(Request $request)
