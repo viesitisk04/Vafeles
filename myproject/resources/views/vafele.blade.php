@@ -1,3 +1,7 @@
+{{--
+    Šis fails attēlo konkrētas vafeles produkta detalizētu skatu ar attēlu, aprakstu, cenu un pirkšanas pogu.
+    Izmanto Blade sintaksi un pielāgotu CSS.
+--}}
 @extends('layouts.app')
 
 @section('content')

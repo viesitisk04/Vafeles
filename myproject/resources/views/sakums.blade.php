@@ -1,3 +1,6 @@
+{{--
+    Šis fails ir sākumlapa ar hero sekciju, paziņojumiem un produktu izcelšanu. Izmanto Blade sintaksi un CSS.
+--}}
 @extends('layouts.app')
 
 @section('content')

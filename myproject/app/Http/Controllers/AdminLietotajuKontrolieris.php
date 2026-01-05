@@ -10,6 +10,7 @@ class AdminLietotajuKontrolieris extends Controller
     public function index()
     {
         // Pārlādējam datus no datu bāzes, lai nodrošinātu aktuālus datus
+            // Parāda lietotāju sarakstu administrācijas panelī
         $lietotaji = User::orderBy('id')->get();
 
         return view('admin.lietotaji', compact('lietotaji'));
@@ -18,6 +19,7 @@ class AdminLietotajuKontrolieris extends Controller
     public function dzest($id)
     {
         // Neļaujam adminam izdzēst pašam sevi
+            // Dzēš lietotāju
         if (Auth::id() == $id) {
             return back()->with('error', 'Tu nevari dzēst pats sevi.');
         }
@@ -32,6 +34,7 @@ class AdminLietotajuKontrolieris extends Controller
         $user = User::findOrFail($id);
 
         // Neļaujam mainīt savu paša statusu
+            // Piešķir lietotājam administratora statusu
         if (Auth::id() == $id) {
             return back()->with('error', 'Tu nevari mainīt savu administratora statusu.');
         }

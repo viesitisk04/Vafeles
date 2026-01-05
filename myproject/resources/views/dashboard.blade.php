@@ -1,3 +1,7 @@
+{{--
+    Šis fails ir lietotāja paneļa skats, kas parāda paziņojumu par veiksmīgu autorizāciju un saiti uz produktu sadaļu.
+    Izmanto Blade komponentus un Tailwind CSS klases.
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -16,3 +20,4 @@
         </div>
     </div>
 </x-app-layout>
+--}}

@@ -1,3 +1,7 @@
+{{--
+    Šis fails attēlo viena produkta detalizētu informāciju: attēlu, nosaukumu, aprakstu, cenu un iespēju pievienot grozam.
+    Izmanto Blade sintaksi un pielāgotu CSS izkārtojumu.
+--}}
 @extends('layouts.app')
 
 @section('content')

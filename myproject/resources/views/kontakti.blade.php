@@ -1,3 +1,7 @@
+{{--
+    Šis fails attēlo kontaktinformāciju un kontaktformu, izmantojot Blade sintaksi un pielāgotu CSS.
+    Iekļauj uzņēmuma informāciju un iespēju nosūtīt ziņu.
+--}}
 @extends('layouts.app')
 
 @section('content')
@@ -124,7 +128,7 @@
         color: #1f2937;
     }
 
-    /* Responsive Design */
+    /* Atsaucīgs dizains */
     @media (max-width: 768px) {
         .container {
             padding: 0 1rem;

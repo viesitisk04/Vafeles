@@ -8,11 +8,13 @@ use App\Mail\KontaktuZinaMail;
 
 class KontaktiKontrolieris extends Controller
 {
+        // Parāda kontaktu lapu ar formu
     public function index()
     {
         return view('kontakti');
     }
 
+        // Apstrādā kontaktformas iesniegšanu un nosūta ziņu uz e-pastu
     public function sutit(Request $request)
     {
         $request->validate([

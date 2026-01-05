@@ -11,9 +11,7 @@ use Illuminate\View\View;
 
 class ProfiluKontrolieris extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
+    // Parāda lietotāja profila rediģēšanas formu
     public function edit(Request $request): View
     {
         return view('profile.edit', [
@@ -21,9 +19,7 @@ class ProfiluKontrolieris extends Controller
         ]);
     }
 
-    /**
-     * Update the user's profile information.
-     */
+    // Atjauno lietotāja profila informāciju
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $request->user()->fill($request->validated());

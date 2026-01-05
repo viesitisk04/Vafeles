@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 class AdminProduktuKontrolieris extends Controller
 {
     public function index()
+            // Parāda produktu sarakstu administrācijas panelī
     {
         $produkti = Produkts::with('kategorija')->get();
         $kategorijas = Kategorija::all();
@@ -17,6 +18,7 @@ class AdminProduktuKontrolieris extends Controller
     }
 
     public function store(Request $request)
+            // Saglabā jaunu produktu
     {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -38,6 +40,7 @@ class AdminProduktuKontrolieris extends Controller
     }
 
     public function edit($id)
+            // Parāda produkta rediģēšanas formu
     {
         $produkts = Produkts::findOrFail($id);
         $kategorijas = Kategorija::all();
@@ -46,6 +49,7 @@ class AdminProduktuKontrolieris extends Controller
     }
 
     public function update(Request $request, $id)
+            // Atjauno produkta informāciju
     {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -68,6 +72,7 @@ class AdminProduktuKontrolieris extends Controller
     }
 
     public function dzest($id)
+            // Dzēš produktu
     {
         Produkts::findOrFail($id)->delete();
         return redirect()->back();

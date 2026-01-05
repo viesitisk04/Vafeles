@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Mail;
 
 class PasutijumaKontrolieris extends Controller
 {
+        // Saglabā lietotāja pasūtījumu un nosūta rēķinu uz e-pastu
     public function saglabat()
     {
         $grozs = session('grozs');

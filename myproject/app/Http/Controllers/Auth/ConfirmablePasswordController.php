@@ -11,17 +11,15 @@ use Illuminate\View\View;
 
 class ConfirmablePasswordController extends Controller
 {
-    /**
-     * Show the confirm password view.
-     */
+    
+        // Parāda paroles apstiprināšanas formu
     public function show(): View
     {
         return view('auth.confirm-password');
     }
 
-    /**
-     * Confirm the user's password.
-     */
+    
+        // Apstiprina lietotāja paroli pirms svarīgas darbības
     public function store(Request $request): RedirectResponse
     {
         if (! Auth::guard('web')->validate([

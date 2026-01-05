@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 class DzerieniKontrolieris extends Controller
 {
+        // Parāda dzērienu produktu sarakstu
     public function index()
     {
         $dzerieni = [

@@ -7,6 +7,7 @@ use App\Models\Produkts;
 
 class ProduktuKontrolieris extends Controller
 {
+        // Parāda produktu sarakstu izvēlētajā kategorijā
     public function kategorija($slug)
     {
         $kategorija = Kategorija::where('slug', $slug)->firstOrFail();
@@ -14,6 +15,7 @@ class ProduktuKontrolieris extends Controller
 
         return view('produkti', compact('kategorija', 'produkti'));
     }
+        // Parāda konkrēta produkta detaļas
     public function show($id)
     {
         $produkts = Produkts::findOrFail($id);

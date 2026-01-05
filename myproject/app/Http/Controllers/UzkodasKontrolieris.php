@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 class UzkodasKontrolieris extends Controller
 {
+        // Parāda uzkodu produktu sarakstu
     public function index()
     {
         $uzkodas = [

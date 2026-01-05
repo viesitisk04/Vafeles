@@ -17,11 +17,13 @@ class VafelesKontrolieris extends Controller
         ['id' => 10,'name' => 'Klasiskā burbuļvafele', 'description' => 'Vienkārša un garšīga.', 'price' => 4.00, 'image' => 'https://www.dateks.lv/images/pic/2400/2400/811/1499.jpg'],
     ];
 
+        // Pāradresē uz vafeļu kategorijas lapu
     public function index()
     {
         return redirect('/kategorija/vafeles');
     }
 
+        // Parāda konkrētas vafeles detaļas
     public function show($id)
     {
         $vafele = collect($this->vafeles)->firstWhere('id', $id);

@@ -1,3 +1,7 @@
+{{--
+    Šis fails attēlo dzērienu produktu sarakstu režģī ar kartiņām, kur katram produktam ir attēls, nosaukums, apraksts un cena.
+    Izmanto Blade sintaksi un pielāgotu CSS.
+--}}
 @extends('layouts.app')
 
 @section('content')

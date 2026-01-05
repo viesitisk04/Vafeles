@@ -6,12 +6,14 @@ use Illuminate\Http\Request;
 
 class GrozsKontrolieris extends Controller
 {
+        // Parāda lietotāja groza saturu
     public function index()
     {
         $grozs = session()->get('grozs', []);
         return view('grozs.index', compact('grozs'));
     }
 
+        // Pievieno produktu grozam
     public function pievienot(Request $request)
     {
         $grozs = session()->get('grozs', []);
@@ -32,6 +34,7 @@ class GrozsKontrolieris extends Controller
         return back();
     }
 
+        // Atjaunina produkta daudzumu grozā
     public function atjauninat(Request $request)
     {
         $grozs = session()->get('grozs');

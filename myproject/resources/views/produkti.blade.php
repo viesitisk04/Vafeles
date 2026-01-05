@@ -1,3 +1,7 @@
+{{--
+    Šis fails attēlo visu produktu sarakstu režģī ar kartiņām, izmantojot stilizāciju un Blade sintaksi.
+    Katram produktam tiek parādīts attēls, nosaukums, apraksts, cena un poga pievienošanai grozam.
+--}}
 @extends('layouts.app')
 
 @section('content')
