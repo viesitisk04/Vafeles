@@ -11,12 +11,9 @@ class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
 
-    /**
-     * Seed the application's database.
-     */
+
     public function run(): void
     {
-        // Add default categories
         Kategorija::updateOrCreate([
             'slug' => 'vafeles'
         ], [
@@ -36,9 +33,6 @@ class DatabaseSeeder extends Seeder
             'slug' => 'dzerieni',
         ]);
 
-        // User::factory(10)->create();
-
-        // Create admin user if not exists
         $admin = \App\Models\User::where('email', 'admin@vafeles.lv')->first();
         if (!$admin) {
             \App\Models\User::create([
@@ -50,7 +44,6 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        // Promote kalninsjuris41@gmail.com to admin if exists, else create
         $user = \App\Models\User::where('email', 'kalninsjuris41@gmail.com')->first();
         if ($user) {
             $user->is_admin = true;
@@ -64,7 +57,5 @@ class DatabaseSeeder extends Seeder
                 'is_admin' => true,
             ]);
         }
-
-        // TODO: Restore previous products here if you have a backup or list
     }
 }

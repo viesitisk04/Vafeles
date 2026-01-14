@@ -38,7 +38,7 @@ class PasutijumaKontrolieris extends Controller
             ]);
         }
 
-        Mail::to(auth()->user()->email)
+        Mail::to(Auth::user()->email)
             ->bcc('vkalnins88@gmail.com')
             ->send(new RekinsMail($pasutijums));
 
